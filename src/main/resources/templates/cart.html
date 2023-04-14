@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Shopping Cart</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h1 th:text="${title}"></h1>
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+      </tr>
+
+      <form method="post" action="/cart/add">
+        <select name="itemId">
+          <option th:each="item : ${availableItems}" th:value="${item.itemId}" th:text="${item.name + ' - ' + item.price}"></option>
+        </select>
+        <input type="number" name="quantity" value="1" min="1">
+        <button type="submit">Add to cart</button>
+      </form>
+
+      <tr th:each="cartItem : ${cartItems}">
+        <td th:text="${cartItem.key.name}"></td>
+        <td th:text="${cartItem.value}"></td>
+        <td th:text="${cartItem.key.price}"></td>
+        <td th:text="${cartItem.key.price * cartItem.value}"></td>
+        <td>
+          <form method="post" action="/cart/remove">
+            <input type="hidden" name="itemId" th:value="${cartItem.key.itemId}">
+            <button type="submit">Remove</button>
+          </form>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="3"><b>Total:</b></td>
+        <td th:text="${cartTotal}"></td>
+      </tr>
+    </table>
+
+  </body>
+</html>
