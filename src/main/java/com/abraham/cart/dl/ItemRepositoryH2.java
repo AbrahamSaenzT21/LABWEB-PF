@@ -24,7 +24,8 @@ public class ItemRepositoryH2 {
                         rs.getInt("ID"),
                         rs.getString("NAME"),
                         rs.getString("DESC"),
-                        rs.getBigDecimal("PRICE")
+                        rs.getBigDecimal("PRICE"),
+                        rs.getString("IMAGEFILENAME")
                 )
         );
     }
@@ -37,7 +38,8 @@ public class ItemRepositoryH2 {
                         rs.getInt("ID"),
                         rs.getString("NAME"),
                         rs.getString("DESC"),
-                        rs.getBigDecimal("PRICE")
+                        rs.getBigDecimal("PRICE"),
+                        rs.getString("IMAGEFILENAME")
                 )
         );
         if (items.isEmpty()) {

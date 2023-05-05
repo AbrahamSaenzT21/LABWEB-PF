@@ -29,6 +29,23 @@ public class ShoppingCart {
         this.items.remove(item);
     }
 
+    public void RemoveItemFromCart(Item item, BigDecimal quantity) {
+        BigDecimal currentQuantity = items.get(item);
+        if (currentQuantity == null) {
+            throw new IllegalArgumentException("Item not found in cart");
+        }
+
+        if (currentQuantity.compareTo(quantity) < 0) {
+            throw new IllegalArgumentException("Not enough items in cart to remove");
+        }
+
+        if (currentQuantity.compareTo(quantity) == 0) {
+            items.remove(item);
+        } else {
+            items.put(item, currentQuantity.subtract(quantity));
+        }
+    }
+
     public void UpdateItemInCart(Item item, BigDecimal quantity) {
         this.items.replace(item, quantity);
     }

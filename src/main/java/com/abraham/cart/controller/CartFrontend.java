@@ -35,6 +35,13 @@ public class CartFrontend {
         return "cart";
     }
 
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("title", "Login");
+        return "login";
+    }
+
+
     @PostMapping("/cart/add")
     public String addToCart(@RequestParam int itemId, @RequestParam BigDecimal quantity, HttpSession session) {
         Item item = itemRepository.findById(itemId);
@@ -54,7 +61,7 @@ public class CartFrontend {
     }
 
     @PostMapping("/cart/remove")
-    public String removeFromCart(@RequestParam int itemId, HttpSession session) {
+    public String removeFromCart(@RequestParam int itemId,@RequestParam BigDecimal quantity, HttpSession session) {
         Item item = itemRepository.findById(itemId);
         if (item == null) {
             throw new IllegalArgumentException("Invalid item id: " + itemId);
@@ -65,9 +72,32 @@ public class CartFrontend {
             throw new IllegalStateException("Shopping cart not found in session");
         }
 
-        cart.RemoveItemFromCart(item);
+        BigDecimal cartQuantity = cart.getItems().get(item);
+        if (cartQuantity == null || quantity.compareTo(BigDecimal.ZERO) <= 0 || quantity.compareTo(cartQuantity) > 0) {
+            throw new IllegalArgumentException("Invalid quantity: " + quantity);
+        }
+
+        cart.RemoveItemFromCart(item, quantity);
 
         return "redirect:/cart";
+    }
+
+    @GetMapping("/about")
+    public String about(Model model) {
+        model.addAttribute("title", "About Us");
+        return "about";
+    }
+
+    @GetMapping("/faq")
+    public String faq(Model model) {
+        model.addAttribute("title", "FAQ");
+        return "faq";
+    }
+
+    @GetMapping("/support")
+    public String support(Model model) {
+        model.addAttribute("title", "support");
+        return "support";
     }
 
 

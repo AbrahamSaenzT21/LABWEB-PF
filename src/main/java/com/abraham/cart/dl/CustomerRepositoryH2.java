@@ -25,8 +25,28 @@ public class CustomerRepositoryH2 {
                         rs.getString("NAME"),
                         rs.getString("LASTNAME"),
                         rs.getString("EMAIL"),
-                        rs.getString("PHONE")
+                        rs.getString("PHONE"),
+                        rs.getString("PASSWORD")
                 )
         );
+    }
+
+    public Customer findByEmail(String email) {
+        String sql = "SELECT * FROM CUSTOMER WHERE EMAIL = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{email}, (rs, rowNum) ->
+                new Customer(
+                        rs.getInt("ID"),
+                        rs.getString("NAME"),
+                        rs.getString("LASTNAME"),
+                        rs.getString("EMAIL"),
+                        rs.getString("PHONE"),
+                        rs.getString("PASSWORD")
+                )
+        );
+    }
+
+    public void save(Customer customer) {
+        String sql = "INSERT INTO CUSTOMER (id, name, lastname, email, phone, password) VALUES (?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, customer.getCustomerId(), customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getPhone(), customer.getPassword());
     }
 }
