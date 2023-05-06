@@ -2,10 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Shopping Cart</title>
+  <style>
+    .title {
+      background-color: #008080;
+      color: black;
+      padding: 10px;
+    }
+  </style>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1 th:text="${title}"></h1>
+<h1 th:text="${title}" class="title"></h1>
 
 <h2>Catalog:</h2>
 <table>
@@ -19,7 +26,7 @@
   </thead>
   <tbody>
   <tr th:each="item : ${availableItems}">
-    <td><img th:src="@{/static.images/__${filename}__(filename=${item.imageFileName})}" width="50" height="50"/></td>
+    <td><img th:src="@{${'/images/' + item.imageFileName + '.jpg'}}" width="70" height="70"/></td>
     <td th:text="${item.name}"></td>
     <td th:text="${item.description}"></td>
     <td th:text="${item.price}"></td>

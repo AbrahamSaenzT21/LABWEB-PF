@@ -3,10 +3,17 @@
 <head>
   <title>About Us</title>
   <meta charset="UTF-8" />
+  <style>
+    .title {
+      background-color: #008080;
+      color: black;
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
-<h1>About Us</h1>
-<p>My Cart App is developed by Abraham Saenz.</p>
+<h1 class="title">About Us</h1>
+<p>My Cart App is developed by Abraham Sáenz.</p>
 <p>Contact us at A00823861@tec.mx for any questions or support.</p>
 <a th:href="@{/cart}">Go to Cart</a>
 <div th:replace="footer :: footer"></div>
